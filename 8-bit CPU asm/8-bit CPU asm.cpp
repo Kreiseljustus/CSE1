@@ -39,7 +39,11 @@ int main(int argc, char* argv[])
     std::vector<std::string> lines;
     std::string line;
 
-    while (std::getline(file, line)) lines.push_back(line);
+    while (std::getline(file, line)) {
+        size_t commentPos = line.find(';');
+        if (commentPos != std::string::npos) line = line.substr(0, commentPos);
+        lines.push_back(line);
+    }
 
     std::unordered_map<std::string, size_t> labels;
     size_t pc = 0;
