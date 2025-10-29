@@ -3,7 +3,7 @@
 A simple custom 8-bit cpu emulator.
 
 I wanted to try out emulating a cpu and originally wanted to start with the 6502 CPU by MOS Technology.
-After discovering how complex such a task is i dediced to try to emulate a very basic cpu first.
+After discovering how complex such a task is i decided to try to emulate a very basic cpu first.
 
 The cpu has a very basic custom instruction set.
 
