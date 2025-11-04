@@ -70,7 +70,20 @@ struct TestCPU {
             return;
         }
 
-        file.read(reinterpret_cast<char*>(memory), fileSize);
+        std::vector<uint8_t> buffer(fileSize);
+        file.read(reinterpret_cast<char*>(buffer.data()), fileSize);
+
+        if (buffer[0] == 0xFE && buffer[1] == 0x08) {
+            std::cout << "Detected CSE1 file header, skipping first two bytes..." << std::endl;
+            buffer.erase(buffer.begin(), buffer.begin() + 2);
+        }
+        else {
+            std::cout << "No magic header found, treating as legacy program..." << std::endl;
+        }
+
+        for (size_t i = 0; i < buffer.size(); ++i) {
+            memory[i] = buffer[i];
+        }
     }
 
 
@@ -256,11 +269,16 @@ struct TestCPU {
 int main(int argc, char** argv)
 {
     std::string inputFile;
+    int tickSpeed = 0;
 
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
         if (arg == "-I" && i + 1 < argc) {
             inputFile = argv[i + 1];
+            i++;
+        }
+        else if (arg == "-TS" && i + 1 < argc) {
+            tickSpeed = reinterpret_cast<int>(argv[i + 1]);
             i++;
         }
     }
@@ -272,5 +290,5 @@ int main(int argc, char** argv)
 
     TestCPU cpu;
     cpu.loadProgram(inputFile);
-    cpu.run(0);
+    cpu.run(tickSpeed);
 }

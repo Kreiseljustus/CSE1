@@ -3,7 +3,7 @@ STA 0xF4
 LDA 48
 STA 0xF5
 
-LDA 5 ;test comment
+LDA 5
 STA 0xF1
 
 loop:

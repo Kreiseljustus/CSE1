@@ -64,6 +64,13 @@ int main(int argc, char* argv[])
     }
 
     std::vector<uint8_t> program;
+
+    //Magic header
+    //First to bytes define that the program is using 8-Bit
+    //This is added to be able to convert the program automatically to 16-Bit by CSE-16
+    program.push_back(0xFE);
+    program.push_back(0x08);
+
     for (auto& line : lines) {
         std::stringstream ss(line);
         std::string word;
