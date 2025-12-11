@@ -53,6 +53,7 @@ The assembler can be run using ```8-bit CPU asm.exe -I ./add_two_inputs.asm -O .
 where the ```-I``` flag is used for the input file and ```-O``` for the output file
 
 It has support for creating and using labels. See [label_test example](/examples/label_test.asm)
+Comments using semicolons (;) are also supported.
 
 ## Example
 
